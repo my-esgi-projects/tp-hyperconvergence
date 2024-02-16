@@ -23,7 +23,7 @@ class ProtectionDomain:
         else:
             print("Protection domains already exists, nothing to do")
 
-        return response, object_to_dict_converter(self)
+        return response, object_to_dict_converter(self), protection_domains
 
 
     def list(self, params=None):
