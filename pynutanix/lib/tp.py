@@ -19,11 +19,11 @@ def create_storage(prefix: str):
     )
 
 
-def create_network(prefix: str):
+def create_network(prefix: str, network="10.0.6.0", vlan_id=1):
     network = Network(
         name=f"{prefix}-Network",
-        vlan_id=1,
-        ip_config={"network_address": "10.0.6.0", "prefix_length": 24},
+        vlan_id=vlan_id,
+        ip_config={"network_address": network, "prefix_length": 24},
     )
     network_params = {"search_string": network.name}
     network_response = network.create()
@@ -44,10 +44,10 @@ def create_network(prefix: str):
     )
   
 
-def create_vm(prefix: str, suffix:str, ip:str):
+def create_vm(prefix: str, suffix:str, ip:str, network="10.0.6.0", vlan_id=1):
 
     storage = create_storage(prefix=prefix)
-    network = create_network(prefix=prefix)
+    network = create_network(prefix=prefix, vlan_id=vlan_id, network=network)
 
     vm = VM(
         memory_mb=1024,
