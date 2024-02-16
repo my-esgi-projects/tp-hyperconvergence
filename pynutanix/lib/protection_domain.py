@@ -16,13 +16,14 @@ class ProtectionDomain:
         response = dict()
 
         if protection_domains.get("metadata")["total_entities"] <= 0:
-            response = self.nutanix_api.create(
-                data=object_to_dict_converter(self), uri=self.uri
-            )
+            pass
+            # response = self.nutanix_api.create(
+            #     data=object_to_dict_converter(self), uri=self.uri
+            # )
         else:
             print("Protection domains already exists, nothing to do")
 
-        return response
+        return response, object_to_dict_converter(self)
 
 
     def list(self, params=None):
