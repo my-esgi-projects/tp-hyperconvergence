@@ -15,7 +15,7 @@ class ProtectionDomain:
         response = dict()
 
         for protection_domain in protection_domains.get("entities"):
-            if protection_domain["name"] == protection_domain.value:
+            if protection_domain["name"] == self.value:
                 count += 1
                 break
 
