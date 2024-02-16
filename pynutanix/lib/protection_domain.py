@@ -10,16 +10,19 @@ class ProtectionDomain:
         self.nutanix_api = NutanixAPI()
 
     def create(self):
-        params = {"names": self.value}
-        protection_domains = self.list(params=params)
-
+        protection_domains = self.list()
+        count = 0
         response = dict()
 
-        if protection_domains.get("metadata")["total_entities"] <= 0:
-            pass
-            # response = self.nutanix_api.create(
-            #     data=object_to_dict_converter(self), uri=self.uri
-            # )
+        for protection_domain in protection_domains.get("entities"):
+            if protection_domain["name"] == protection_domain.value:
+                count += 1
+                break
+
+        if count <= 0:
+            response = self.nutanix_api.create(
+                data=object_to_dict_converter(self), uri=self.uri
+            )
         else:
             print("Protection domains already exists, nothing to do")
 
