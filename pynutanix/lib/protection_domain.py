@@ -26,13 +26,24 @@ class ProtectionDomain:
         else:
             print("Protection domains already exists, nothing to do")
 
-        return response, object_to_dict_converter(self), protection_domains
+        return response, object_to_dict_converter(self)
+
+
+    def add_vms_and_snapshot_schedules(self, vms:list):
+        add_vms_payload = {"names": vms}
+        response_adding_vms = self.nutanix_api.create(data=add_vms_payload, uri=f"{self.uri}/{self.value}/protect_vms")
+        
+        snapshot_schedule_payload = {"type": "HOURLY", "every_nth": 4}
+        response_snapshot_schedule = self.nutanix_api.create(data=snapshot_schedule_payload, uri=f"{self.uri}/{self.value}/schedules")
+
+        return response_adding_vms, response_snapshot_schedule
 
 
     def list(self, params=None):
         response = self.nutanix_api.list(uri=self.uri, params=params)
 
         return response
+
 
     def get(self):
         response = self.nutanix_api.get(uri=f"{self.uri}/{self.uuid}")

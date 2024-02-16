@@ -77,7 +77,7 @@ def create_vm(prefix: str, suffix:str, ip:str):
     )
 
 
-def create_protection_domain(prefix: str):
+def manage_protection_domain(prefix: str, vms: list):
     protection_domain = ProtectionDomain(
         value=f"{prefix}-pd",
         annotations=["tp", "esgi"]
@@ -93,10 +93,12 @@ def create_protection_domain(prefix: str):
             protection_domain_found = pd
             break
 
-    
+    add_vms = protection_domain.add_vms_and_snapshot_schedules(vms=vms)
+
     return dict(
         object=protection_domain, 
         params=protection_domain_params, 
         response=protection_domain_response,
         object_found=protection_domain_found,
+        add_vms_response=add_vms
     )

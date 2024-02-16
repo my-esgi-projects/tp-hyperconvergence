@@ -1,5 +1,5 @@
 import click
-from pynutanix.lib.tp import create_vm,create_protection_domain
+from pynutanix.lib.tp import create_vm, manage_protection_domain
 
 
 @click.command()
@@ -11,7 +11,7 @@ def launch(prefix):
     db_vm = create_vm(prefix=prefix, suffix="db", ip="10.0.6.4")
 
     # Create protection domain
-    protection_domain = create_protection_domain(prefix=prefix)
+    protection_domain = manage_protection_domain(prefix=prefix, vms=[f"{prefix}-web", f"{prefix}-db"])
     click.echo(
         f"web_vm_found = {web_vm}, db_vm={db_vm}, protection_domain={protection_domain}"
     )
