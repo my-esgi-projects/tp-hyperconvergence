@@ -5,16 +5,19 @@ from pynutanix.lib.utils import object_to_dict_converter
 class Storage():
     def __init__(self, name=None, capacity=None, uuid=None) -> None:
         self.name = name
-        self.capacity = capacity
+        self.advertised_capacity = capacity
         self.uuid = uuid
         self.uri = "storage_containers"
         self.nutanix_api = NutanixAPI()
 
     def create(self):
-        response = self.nutanix_api.create(
-            data=object_to_dict_converter(self), uri=self.uri
-        )
-        return response
+        params = {"search_string": self.name}
+        storages = self.list(params=params)
+    
+        #response = self.nutanix_api.create(
+        #    data=object_to_dict_converter(self), uri=self.uri
+        #)
+        return storages
 
     def update(self):
         response = self.nutanix_api.create(
@@ -25,12 +28,6 @@ class Storage():
 
     def list(self, params=None):
         response = self.nutanix_api.list(uri=self.uri, params=params)
-        
-        response = dict(
-            entities=[
-                dict(container_uuid="toto")
-            ]
-        )
         
         return response
 

@@ -12,6 +12,8 @@ class NutanixAPI():
             "Accept": "application/json",
         }
 
+        self.nutanix_api.auth = (config.nutanix_user, config.nutanix_password)
+
     def call(self, method, uri, data=None, params=None, ssl_verify=False):
         response = self.nutanix_api.request(
             method=method,
@@ -28,8 +30,7 @@ class NutanixAPI():
             raise Exception(f"Could not reach {self.base_url}.")
 
     def create(self, data: dict, uri: str, params=None):
-        #response = self.nutanix_api.call(method="POST", uri=uri, data=data, params=params)
-        response = {"value": True}
+        response = self.call(method="POST", uri=uri, data=data, params=params)
 
         return response
 
@@ -48,10 +49,10 @@ class NutanixAPI():
         return response
 
     def list(self, uri: str, params=None):
-        # response = self.call(
-        #     method="GET",
-        #     uri=f"{uri}",
-        #     params=params
-        # )
-        response = {"value": True}
+        response = self.call(
+             method="GET",
+             uri=f"{uri}",
+             params=params
+        )
+        # response = {"value": True}
         return response

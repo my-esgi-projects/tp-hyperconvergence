@@ -10,7 +10,7 @@ def get_required_environment(variable: str, is_required=True):
 
 
 nutanix_api_endpoint = os.environ.get(
-    "NUTANIX_ENDPOINT_API", "https://10.42.72.37:9440/PrismGateway/services/rest/v2.0/"
+    "NUTANIX_ENDPOINT_API", "https://10.38.4.199:9440/PrismGateway/services/rest/v2.0/"
 )
 nutanix_user = get_required_environment(variable="NUTANIX_USER")
 nutanix_password = get_required_environment(variable="NUTANIX_PASS")

@@ -15,7 +15,7 @@ class Network():
         response = self.nutanix_api.create(
             data=object_to_dict_converter(self), uri=self.uri
         )
-        response = {"network_uuid": "string"}
+        #response = {"network_uuid": "string"}
         
         return response
 
