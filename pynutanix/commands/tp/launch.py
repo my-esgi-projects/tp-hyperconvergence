@@ -51,6 +51,7 @@ def launch():
             image_disk_uid="934d5738-06fd-4ea2-a8f8-43ee5d9313b0",
             ip_address="10.0.6.4",
             network_uid=network_found.get("uuid"),
+            userdata="yum update -y"
         )
     db_vm_response = db_vm.create()
 
@@ -70,4 +71,4 @@ def launch():
                     break
 
     
-    click.echo(f"response = {web_vm_found}, {db_vm_found}, {db_vm_response} ")
+    click.echo(f"web_vm_found = {web_vm_found}, db_vm={db_vm_found}, db_vm_resp={db_vm_response} ")

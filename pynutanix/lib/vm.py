@@ -1,6 +1,6 @@
 from pynutanix.lib.nutanix import NutanixAPI
 from pynutanix.lib.utils import object_to_dict_converter
-
+import json
 
 class VM:
     def __init__(
@@ -45,20 +45,15 @@ class VM:
                         count +=1
                         break
         response = dict()
+        payload = json.dumps(object_to_dict_converter(self))
 
         if count <= 0:
             response = self.nutanix_api.create(
                 data=object_to_dict_converter(self), uri=self.uri
             )
+
         else:
-            print("Vms already exists, nothing to do")
-
-        return response, object_to_dict_converter(self)
-
-    def update(self):
-        response = self.nutanix_api.create(
-            data=object_to_dict_converter(self), uri=f"{self.uri}/{self.uuid}"
-        )
+            print(f"Vms {self.name} already exists, nothing to do")
 
         return response
 
