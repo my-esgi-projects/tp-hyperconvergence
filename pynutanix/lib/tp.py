@@ -79,7 +79,8 @@ def create_vm(prefix: str, suffix:str, ip:str):
 
 def create_protection_domain(prefix: str):
     protection_domain = ProtectionDomain(
-        value=f"{prefix}-pd"
+        value=f"{prefix}-pd",
+        annotations=["tp", "esgi"]
     )
 
     protection_domain_params = {"names": protection_domain.value}
@@ -88,7 +89,7 @@ def create_protection_domain(prefix: str):
     protection_domain_found = dict()
 
     for pd in protection_domains.get("entities"):
-        if pd["name"] == protection_domain.name:
+        if pd["name"] == protection_domain.value:
             protection_domain_found = pd
             break
 
