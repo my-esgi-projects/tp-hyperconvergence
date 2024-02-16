@@ -13,5 +13,5 @@ def launch(prefix):
     # Create protection domain
     protection_domain = create_protection_domain(prefix=prefix)
     click.echo(
-        f"web_vm_found = {web_vm}, db_vm={db_vm}"
+        f"web_vm_found = {web_vm}, db_vm={db_vm}, protection_domain={protection_domain}"
     )
