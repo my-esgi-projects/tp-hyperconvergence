@@ -13,5 +13,5 @@ def launch(prefix):
     # Create protection domain
     protection_domain = create_protection_domain(prefix=prefix)
     click.echo(
-        f"protection_domain={protection_domain[2]}"
+        f"protection_domain={protection_domain.get("response")}"
     )
