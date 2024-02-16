@@ -33,10 +33,10 @@ class ProtectionDomain:
         add_vms_payload = {"names": vms}
         response_adding_vms = self.nutanix_api.create(data=add_vms_payload, uri=f"{self.uri}/{self.value}/protect_vms")
         
-        snapshot_schedule_payload = {"type": "HOURLY", "every_nth": 4}
-        response_snapshot_schedule = self.nutanix_api.create(data=snapshot_schedule_payload, uri=f"{self.uri}/{self.value}/schedules")
+        # snapshot_schedule_payload = {"type": "HOURLY", "every_nth": 4}
+        # response_snapshot_schedule = self.nutanix_api.create(data=snapshot_schedule_payload, uri=f"{self.uri}/{self.value}/schedules")
 
-        return response_adding_vms, response_snapshot_schedule
+        return response_adding_vms
 
 
     def list(self, params=None):
