@@ -2,28 +2,28 @@ from pynutanix.lib.nutanix import NutanixAPI
 from pynutanix.lib.utils import object_to_dict_converter
 
 
-class Storage:
-    def __init__(self, name=None, capacity=None, uuid=None) -> None:
-        self.name = name
-        self.advertised_capacity = capacity
-        self.uuid = uuid
-        self.uri = "storage_containers"
+class ProtectionDomain:
+    def __init__(self, annotations=None, value=None) -> None:
+        self.annotations = annotations
+        self.value = value
+        self.uri = "protection_domains"
         self.nutanix_api = NutanixAPI()
 
     def create(self):
-        params = {"search_string": self.name}
-        storages = self.list(params=params)
+        params = {"names": self.value}
+        protection_domains = self.list(params=params)
 
         response = dict()
 
-        if storages.get("metadata")["total_entities"] <= 0:
+        if protection_domains.get("metadata")["total_entities"] <= 0:
             response = self.nutanix_api.create(
                 data=object_to_dict_converter(self), uri=self.uri
             )
         else:
-            print("Storage already exists, nothing to do")
+            print("Protection domains already exists, nothing to do")
 
         return response
+
 
     def list(self, params=None):
         response = self.nutanix_api.list(uri=self.uri, params=params)
