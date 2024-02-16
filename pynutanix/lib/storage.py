@@ -13,11 +13,18 @@ class Storage():
     def create(self):
         params = {"search_string": self.name}
         storages = self.list(params=params)
-    
-        #response = self.nutanix_api.create(
-        #    data=object_to_dict_converter(self), uri=self.uri
-        #)
-        return storages
+
+        response = dict()
+
+        if storages.get("metadata")["total_entities"] <= 0:
+            response = self.nutanix_api.create(
+                data=object_to_dict_converter(self), uri=self.uri
+            )
+        else:
+            print("Storage already exists, nothing to do")
+        
+        return response
+
 
     def update(self):
         response = self.nutanix_api.create(

@@ -12,10 +12,23 @@ class Network():
         self.nutanix_api = NutanixAPI()
 
     def create(self):
-        response = self.nutanix_api.create(
-            data=object_to_dict_converter(self), uri=self.uri
-        )
-        #response = {"network_uuid": "string"}
+        params = {"search_string": self.name}
+        networks = self.list(params=params)
+
+        response = dict()
+        count = 0
+        for network in networks.get("entities"):
+            if network["name"] == self.name:
+                    count +=1
+                    break
+        
+        if count <= 0:
+            response = self.nutanix_api.create(
+                data=object_to_dict_converter(self), uri=self.uri
+            )
+
+        else:
+            print("Network already exists, nothing to do")
         
         return response
 
@@ -23,11 +36,10 @@ class Network():
         response = self.nutanix_api.create(
             data=object_to_dict_converter(self), uri=f"{self.uri}/{self.uuid}"
         )
-
         return response
 
-    def list(self):
-        response = self.nutanix_api.list(uri=self.uri)
+    def list(self, params=None):
+        response = self.nutanix_api.list(uri=self.uri, params=params)
 
         return response
 
