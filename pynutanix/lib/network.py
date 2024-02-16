@@ -2,7 +2,7 @@ from pynutanix.lib.nutanix import NutanixAPI
 from pynutanix.lib.utils import object_to_dict_converter
 
 
-class Network():
+class Network:
     def __init__(self, name=None, vlan_id=None, ip_config=None, uuid=None) -> None:
         self.name = name
         self.vlan_id = vlan_id
@@ -19,9 +19,9 @@ class Network():
         count = 0
         for network in networks.get("entities"):
             if network["name"] == self.name:
-                    count +=1
-                    break
-        
+                count += 1
+                break
+
         if count <= 0:
             response = self.nutanix_api.create(
                 data=object_to_dict_converter(self), uri=self.uri
@@ -29,7 +29,7 @@ class Network():
 
         else:
             print("Network already exists, nothing to do")
-        
+
         return response
 
     def update(self):

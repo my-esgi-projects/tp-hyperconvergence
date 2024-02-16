@@ -7,8 +7,7 @@ from pynutanix.lib.utils import object_to_dict_converter
 
 
 @click.command()
-@click.option(
-    "-r", "--requirements", default="auto", help="Name", type=str)
+@click.option("-r", "--requirements", default="auto", help="Name", type=str)
 @click.option("-n", "--name", required=True, help="Name", type=str, prompt=True)
 @click.option(
     "-m", "--memory-mb", required=True, help="Memory MB", type=int, prompt=True
@@ -24,9 +23,7 @@ from pynutanix.lib.utils import object_to_dict_converter
     type=int,
     prompt=True,
 )
-@click.option(
-    "-d", "--vm-disk-uid", help="VM Disk UID", type=str
-)
+@click.option("-d", "--vm-disk-uid", help="VM Disk UID", type=str)
 @click.option(
     "-i",
     "--image-disk-uid",
@@ -35,9 +32,7 @@ from pynutanix.lib.utils import object_to_dict_converter
     type=str,
     prompt=True,
 )
-@click.option(
-    "-net", "--network-uid", help="Network UID", type=str
-)
+@click.option("-net", "--network-uid", help="Network UID", type=str)
 @click.option(
     "-ip", "--ip-address", required=True, help="IP Address", type=str, prompt=True
 )

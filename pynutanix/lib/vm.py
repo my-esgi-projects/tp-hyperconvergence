@@ -2,6 +2,7 @@ from pynutanix.lib.nutanix import NutanixAPI
 from pynutanix.lib.utils import object_to_dict_converter
 import json
 
+
 class VM:
     def __init__(
         self,
@@ -25,11 +26,15 @@ class VM:
             dict(
                 is_cdrom=False,
                 disk_address=dict(device_bus="scsi", vmdisk_uuid=vm_disk_uid),
-                vm_disk_clone=dict(disk_address=dict(vmdisk_uuid=image_disk_uid))
-            )
+                vm_disk_clone=dict(disk_address=dict(vmdisk_uuid=image_disk_uid)),
+            ),
         ]
         self.vm_nics = [
-            dict(network_uuid=network_uid, requested_ip_address=ip_address, is_connected=True)
+            dict(
+                network_uuid=network_uid,
+                requested_ip_address=ip_address,
+                is_connected=True,
+            )
         ]
         self.vm_customization_config = dict(userdata=userdata)
         self.uuid = uuid
@@ -41,9 +46,9 @@ class VM:
         vms = self.list()
 
         for vm in vms.get("entities"):
-                if vm["name"] == self.name:
-                        count +=1
-                        break
+            if vm["name"] == self.name:
+                count += 1
+                break
         response = dict()
         payload = json.dumps(object_to_dict_converter(self))
 

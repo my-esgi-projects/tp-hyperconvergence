@@ -4,6 +4,7 @@ from pynutanix.commands.network import create_network, list_networks
 from pynutanix.commands.vm import create_vm, list_vms
 from pynutanix.commands.tp import launch
 
+
 @click.group()
 def cli():
     pass
@@ -31,13 +32,16 @@ network.add_command(list_networks.list)
 def vm():
     pass
 
+
 vm.add_command(create_vm.create)
 vm.add_command(list_vms.list)
+
 
 @cli.group()
 def tp():
     pass
-    
+
+
 tp.add_command(launch.launch)
 
 if __name__ == "__main__":

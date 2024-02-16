@@ -4,7 +4,7 @@ import requests
 from pynutanix import config
 
 
-class NutanixAPI():
+class NutanixAPI:
     def __init__(self) -> None:
         self.base_url = config.nutanix_api_endpoint
         self.nutanix_api = requests.Session()
@@ -40,19 +40,11 @@ class NutanixAPI():
         return response
 
     def get(self, uri: str, params=None):
-        response = self.call(
-            method="GET",
-            uri=f"{uri}",
-            params=params
-        )
+        response = self.call(method="GET", uri=f"{uri}", params=params)
 
         return response
 
     def list(self, uri: str, params=None):
-        response = self.call(
-             method="GET",
-             uri=f"{uri}",
-             params=params
-        )
+        response = self.call(method="GET", uri=f"{uri}", params=params)
         # response = {"value": True}
         return response
