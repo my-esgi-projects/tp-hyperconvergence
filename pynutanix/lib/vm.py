@@ -37,11 +37,23 @@ class VM:
         self.nutanix_api = NutanixAPI()
 
     def create(self):
-        response = self.nutanix_api.create(
-            data=object_to_dict_converter(self), uri=self.uri
-        )
+        count = 0
+        vms = self.list()
 
-        return object_to_dict_converter(self)
+        for vm in vms.get("entities"):
+                if vm["name"] == self.name:
+                        count +=1
+                        break
+        response = dict()
+
+        if count <= 0:
+            response = self.nutanix_api.create(
+                data=object_to_dict_converter(self), uri=self.uri
+            )
+        else:
+            print("Vms already exists, nothing to do")
+
+        return response, object_to_dict_converter(self)
 
     def update(self):
         response = self.nutanix_api.create(
@@ -50,8 +62,8 @@ class VM:
 
         return response
 
-    def list(self):
-        response = self.nutanix_api.list(uri=self.uri)
+    def list(self, params=None):
+        response = self.nutanix_api.list(uri=self.uri, params=params)
 
         return response
 
